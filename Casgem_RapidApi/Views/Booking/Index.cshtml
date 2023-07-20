@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<HotelListViewModel.Result>
+@{
     Layout = null;
 }
 <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -32,4 +33,14 @@
             <button class="btn btn-primary">Hotel Ara</button>
         </div>
     </form>
+
+    <table class="table table-hover">
+        @foreach(var item in Model)
+        {
+        <tr>
+            <td>@item.name</td>
+        </tr>
+        }
+    </table>
+
 </div>

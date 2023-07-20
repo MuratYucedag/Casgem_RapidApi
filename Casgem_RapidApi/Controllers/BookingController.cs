@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Casgem_RapidApi.Models;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Casgem_RapidApi.Controllers
 {
     public class BookingController : Controller
     {
-        public async Task <IActionResult> Index(string adult,string child,string checkinDate, string checkoutDate,string roomNumber,string cityID)
+        public async Task <IActionResult> Index(string adult="1",string child="1",string checkinDate="2023-09-27", string checkoutDate="2023-09-28",string roomNumber="1",string cityID= "-553173")
         {
             var client = new HttpClient();
             var request = new HttpRequestMessage
@@ -21,9 +23,9 @@ namespace Casgem_RapidApi.Controllers
             {
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(body);
+                var values = JsonConvert.DeserializeObject<HotelListViewModel>(body);
+                return View(values.results.ToList());
             }
-            return View();
         }
 
     }
